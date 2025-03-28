@@ -4,6 +4,8 @@ use std::{
     process,
 };
 
+use colored::Colorize;
+
 /// Enum representing the type of range value (Min or Max).
 enum RangeKind {
     Min,
@@ -35,8 +37,12 @@ fn ask_for_value(kind: RangeKind) -> i32 {
 }
 
 fn main() {
-    println!("Welcome to the guessing game!");
-    println!("Please define a range for generating a random number!");
+    println!("{}", "Welcome to the guessing game!".bold().green());
+    println!("{}", "=".repeat(20));
+    println!(
+        "{}",
+        "Please define a range for generating a random number!".bold()
+    );
 
     // Get the min and max values from the user
     let min_value = ask_for_value(RangeKind::Min);
@@ -51,6 +57,7 @@ fn main() {
     // Generate a random number within the specified range
     let random_number = rand::random_range(min_value..=max_value);
 
+    let mut count = 0;
     // Game loop: User keeps guessing until they find the correct number
     loop {
         print!("Enter your guess: ");
@@ -76,9 +83,21 @@ fn main() {
             Ordering::Less => println!("Too small! Try again."),
             Ordering::Greater => println!("Too large! Try again."),
             Ordering::Equal => {
-                println!("Congratulations! You guessed the correct number!");
+                println!(
+                    "{}",
+                    "Congratulations! You guessed the correct number!"
+                        .bold()
+                        .green()
+                );
                 break; // Exit the loop on a correct guess
             }
         }
+
+        count += 1;
     }
+
+    println!(
+        "You guessed the number correctly after {} tries!",
+        count.to_string().bright_green()
+    );
 }
