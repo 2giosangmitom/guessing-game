@@ -1,10 +1,9 @@
+use colored::Colorize;
 use std::{
     cmp::Ordering,
     io::{self, Write},
     process,
 };
-
-use colored::Colorize;
 
 /// Enum representing the type of range value (Min or Max).
 enum RangeKind {
